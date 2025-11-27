@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuadro de Rifa 0-99</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-template-rows: repeat(10, 50px);
+            gap: 5px;
+            justify-content: center;
+            margin: 20px auto;
+            width: fit-content;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #000;
+            cursor: pointer;
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .cell.tachado {
+            background-color: #000;  /* Fondo negro sólido */
+            color: transparent;  /* Texto invisible (desaparece) */
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cuadro de Rifa (0-99)</h1>
+    <p>Haz clic en un número para tacharlo (desaparece y se pone negro). ¡Buena suerte en tu rifa!</p>
+    <button id="reset-btn">Reiniciar Cuadro</button>
+    <div class="grid" id="rifa-grid">
+        <!-- Los números se generan automáticamente con JavaScript -->
+    </div>
+
+    <script>
+        const grid = document.getElementById('rifa-grid');
+        let numbers = Array.from({length: 100}, (_, i) => i); // Crea array del 0 al 99 en orden
+
+        // Crea las celdas en orden
+        numbers.forEach(num => {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.textContent = num;
+            cell.addEventListener('click', () => {
+                cell.classList.toggle('tachado');
+            });
+            grid.appendChild(cell);
+        });
+
+        // Función para reiniciar el cuadro
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.classList.remove('tachado');
+            });
+        });
+    </script>
+</body>
+</html>
